@@ -13,7 +13,7 @@ const ServerStart = async () => {
     app.listen(PORT, () => {
       console.log(`Server running on port ${HOST}:${PORT}`);
     });
-    await pool.connect();
+    // await pool.connect();
   } catch (error) {
     const err = error as Error;
     console.log(`Failed to start server: ${err.message}`);
