@@ -2,6 +2,11 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator custom_generator {
+    provider = "prisma-generator-fake-data"
+    output   = "../types/fake-data.ts"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -14,12 +19,12 @@ model Roles {
 }
 
 model User {
-  id            Int     @id @default(autoincrement())
+  id_user       Int     @id @default(autoincrement())
   name          String  @db.VarChar(255)
   email         String  @unique
+  password      String  @db.VarChar(255)
   is_active     Boolean @default(false)
-  role_id       Int     @unique
+  role_id       Int     
   roles Roles   @relation(fields: [role_id], references: [id_role])
-
 }
 

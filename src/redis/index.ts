@@ -4,11 +4,15 @@ import { promisify } from 'util';
 // Create Redis client
 const password = 'a9_d:zgrQ4HGL.d';
 const client = createClient({
-  url: `redis://redis:123456@127.0.0.1:6379`,
+  url: `redis://default:${encodeURIComponent(password)}@127.0.0.1:6379`,
 });
 
 client.on('error', (err) => {
   console.error('Redis error:', err);
+});
+
+client.on('connect', () => {
+  console.log('Redis connect');
 });
 
 // Promisify the get and set methods

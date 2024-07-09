@@ -1,13 +1,11 @@
 import { Request, Response } from 'express';
-import BussinessUsers from '../bussiness/BussinessUsers';
 import ApiResponse from '../helpers/ApiResponse';
+import ServicesUsers from '../domain/ServiceUsers';
 
 class UserController {
   public static async getAllUsers(req: Request, res: Response) {
     try {
-      const allUsers = await BussinessUsers.allusers();
-      console.log('USER => ', allUsers);
-      console.log(ApiResponse.response200(allUsers, 'Get All Users'));
+      const allUsers = await ServicesUsers.allusers();
       res.status(200).json(ApiResponse.response200(allUsers, 'Get All Users'));
     } catch (error) {
       console.log(ApiResponse.response500((error as Error).message));
