@@ -1,20 +1,16 @@
 import { Request, Response } from 'express';
 import ApiResponse from '../helpers/ApiResponse';
 import ServicesUsers from '../domain/ServiceUsers';
+import { PrismaClient } from '@prisma/client';
 
-
-interface User extends Request {
-    name: string,
-    email: string,
-    password: string,
-    is_active: boolean,
-    role_id: number
-}
+const prisma = new PrismaClient();
 
 class UserController {
   public static async getAllUsers(req: Request, res: Response) {
     try {
+      // Panggil Service Yang Menangani Ambil Semua Data
       const allUsers = await ServicesUsers.allusers();
+      // Mengembalikan response dengan handler Helper Api Response
       res.status(200).json(ApiResponse.response200(allUsers, 'Get All Users'));
     } catch (error) {
       console.log(ApiResponse.response500((error as Error).message));
@@ -32,7 +28,24 @@ class UserController {
         role_id: req.body.role_id,
       }
       const createUsers = await ServicesUsers.createUsers(bodyUser);
-      console.log(createUsers);
+
+      if (createUsers != 201) {
+        return res.status(500).json(ApiResponse.response500('Internal Server Error'))
+      }
+      return res.status(201).json(ApiResponse.response201('Berhasil Create User'))
+    } catch (error) {
+      console.log(ApiResponse.response500((error as Error).message));
+      return res.status(500).json(ApiResponse.response500((error as Error).message));
+    }
+  }
+
+  public static async deleteUser(req: Request, res: Response) {
+    try {
+      // const user = await prisma.user.findUnique({
+      //   where: {
+      //     id_user: req.params.id_user
+      //   }
+      // })
     } catch (error) {
       console.log(ApiResponse.response500((error as Error).message));
       return res.status(500).json(ApiResponse.response500((error as Error).message));

@@ -1,17 +1,10 @@
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs'
-import { log } from 'console';
-import { Request, Response } from 'express';
+import { CreateUser } from '../utils';
 
 const prisma = new PrismaClient();
 
-interface User extends Request {
-    name: string,
-    email: string,
-    password: string,
-    is_active: boolean,
-    role_id: number
-}
+
 
 class ServicesUsers {
   static async allusers() {
@@ -19,7 +12,7 @@ class ServicesUsers {
     return users;
   }
 
-  static async createUsers(body: User) {
+  static async createUsers(body: CreateUser) {
     console.log(body)  
     const hash_password = await bcrypt.hashSync(body.password , 10);
       const bodyCreate = await prisma.user.create({
@@ -36,7 +29,7 @@ class ServicesUsers {
       if (!bodyCreate) {
         return 500
       }
-      return 200;
+      return 201;
   }
 }
 

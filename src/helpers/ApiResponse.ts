@@ -13,11 +13,10 @@ class ApiResponse {
   /**
    * KODE RESPONSE 201
    */
-  static response201<T>(data: T, message: string) {
+  static response201<T>(message: string) {
     return {
       status: true,
       message: message,
-      data: data,
     };
   }
 

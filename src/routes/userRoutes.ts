@@ -5,5 +5,6 @@ const userRoutes = Router();
 
 userRoutes.get('/', UserController.getAllUsers);
 userRoutes.post('/', UserController.postUser);
+userRoutes.delete('/', UserController.deleteUser);
 
 export default userRoutes;
