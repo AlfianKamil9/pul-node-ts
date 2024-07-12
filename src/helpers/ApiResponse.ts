@@ -25,7 +25,7 @@ class ApiResponse {
    */
   static response400<T>(data: T, message: string) {
     return {
-      status: true,
+      status: false,
       message: message,
       data: data,
     };
@@ -36,7 +36,7 @@ class ApiResponse {
    */
   static response401<T>(data: T, message: string) {
     return {
-      status: true,
+      status: false,
       message: message,
       data: data,
     };
@@ -47,7 +47,7 @@ class ApiResponse {
    */
   static response403<T>(data: T, message: string) {
     return {
-      status: true,
+      status: false,
       message: message,
       data: data,
     };
@@ -58,7 +58,7 @@ class ApiResponse {
    */
   static response404<T>(data: T, message: string) {
     return {
-      status: true,
+      status: false,
       message: message,
       data: data,
     };
